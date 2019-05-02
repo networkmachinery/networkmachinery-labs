@@ -2,7 +2,6 @@
 
 Sets up a kubernetes cluster without CNI. Just run `vagrant up`. You might also want to run `vagrant ssh-config >> ~/.ssh/config` as vagrant ansible provisioner is a little lacking and it needs manual configuration for the hosts and the private keys.
 
-
 ## Vagrant Configuration
 
 VMs configuration can be modified in the `devConfig.yml` file. The current config is below:
@@ -31,7 +30,6 @@ VMs configuration can be modified in the `devConfig.yml` file. The current confi
 
 ## Ansible Configuration
 
-
 Feel free to modify the kubeadm config templates if you want to change / add parameters to the cluster (e.g., bindport and advertiseAddress for the API server, or the join-token).
 
 ```
@@ -46,3 +44,11 @@ Feel free to modify the kubeadm config templates if you want to change / add par
 ```
 
 Also have a look around the defaults for the different roles in case you want to change something.
+
+## Testing CNIs
+
+To test a specific CNI, all what you need to do is apply the yaml for the corresponding CNI. For example to use Calico, do:
+
+```bash
+kubectl apply --kubeconfig=/etc/kubernetes/admin.conf -f https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml"
+```

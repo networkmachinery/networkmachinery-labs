@@ -13,17 +13,10 @@ machines = YAML.load_file(File.join(File.dirname(__FILE__), 'devConfig.yml'))
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Iterate through entries in YAML file to create VMs
   machines.each do |machine|
-
-    # Configure the VMs per details in machines.yml
+    # Configure the VMs per details in devConfig.yml
     config.vm.define machine['name'] do |srv|
-
-      # Don't check for box updates
       srv.vm.box_check_update = false
-
-      # Specify the hostname of the VM
       srv.vm.hostname = machine['name']
-
-      # Specify the Vagrant box to use (use VMware box by default)
       srv.vm.box = machine['box']['vb']
 
       # Configure default synced folder (disable by default)
