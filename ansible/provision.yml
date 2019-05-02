@@ -1,0 +1,25 @@
+---
+# bootstrap python using ssh
+- hosts: all
+  any_errors_fatal: true
+  become: true
+  gather_facts: false
+  roles:
+    - 'bootstrap'
+    - 'go'
+    - 'cni'
+    - 'k8s-common'
+
+- hosts: masters
+  any_errors_fatal: true
+  become: true
+  gather_facts: false
+  roles:
+    - 'k8s-master'
+
+- hosts: all
+  any_errors_fatal: true
+  become: true
+  gather_facts: false
+  roles:
+    - 'k8s-worker'

@@ -1,0 +1,4 @@
+  - name: kubeadm init
+    shell: >
+        sysctl -p &&
+        kubeadm init --ignore-preflight-errors=all --config=/etc/kubeadm/kubeadm.conf

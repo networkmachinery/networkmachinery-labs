@@ -1,0 +1,7 @@
+- sysctl: name=net.bridge.bridge-nf-call-ip6tables value=1 state=present reload=yes sysctl_set=yes
+- sysctl: name=net.bridge.bridge-nf-call-iptables value=1 state=present reload=yes sysctl_set=yes
+
+
+- name: join nodes
+  shell: >
+    kubeadm join {{ joinAddress }} --token  {{ joinToken }} --discovery-token-unsafe-skip-ca-verification --ignore-preflight-errors=all

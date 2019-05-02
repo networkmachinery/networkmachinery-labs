@@ -1,0 +1,47 @@
+---
+apiServer:
+  certSANs:
+  - localhost
+apiVersion: kubeadm.k8s.io/v1beta1
+clusterName: cni-test
+controllerManager:
+  extraArgs:
+    enable-hostpath-provisioner: "true"
+kind: ClusterConfiguration
+kubernetesVersion: v1.14.1
+metadata:
+  name: config
+name: config
+networking:
+  podSubnet: 192.168.0.0/16
+---
+apiVersion: kubeadm.k8s.io/v1beta1
+bootstrapTokens:
+- token: {{ joinToken }}
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: {{ apiserverAdvertiseAddress }}
+  bindPort: 6443
+metadata:
+  name: config
+---
+apiVersion: kubeadm.k8s.io/v1beta1
+kind: JoinConfiguration
+metadata:
+  name: config
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+evictionHard:
+  imagefs.available: 0%
+  nodefs.available: 0%
+  nodefs.inodesFree: 0%
+imageGCHighThresholdPercent: 100
+kind: KubeletConfiguration
+metadata:
+  name: config
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+metadata:
+  name: config
+clusterCIDR: {{ clusterCIDR }}

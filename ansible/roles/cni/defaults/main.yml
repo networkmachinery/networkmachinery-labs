@@ -1,0 +1,7 @@
+---
+
+cni_release_version: v0.7.0
+cni_tar_name: cni-amd64-v0.7.0.tgz
+
+plugins_release_version: v0.7.0
+plugins_tar_name: cni-plugins-amd64-v0.7.0.tgz

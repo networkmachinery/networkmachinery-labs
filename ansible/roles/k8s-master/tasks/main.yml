@@ -1,0 +1,14 @@
+
+- lineinfile: dest=/etc/sysctl.conf line='net.bridge.bridge-nf-call-ip6tables = 1' state=present
+- lineinfile: dest=/etc/sysctl.conf line='net.bridge.bridge-nf-call-iptables = 1' state=present
+
+
+- name: Ensures /etc/kubeadm/ dir exists
+  file: path=/etc/kubeadm/ state=directory
+
+- name: Copy kubeadm config over to master
+  template:
+    src: templates/kubeadm.conf.j2
+    dest: /etc/kubeadm/kubeadm.conf
+  notify:
+    - kubeadm init

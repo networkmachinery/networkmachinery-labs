@@ -1,0 +1,35 @@
+---
+# # Fetches the docker installation script
+# # from `get.docker.com` and then pipes the
+# # script to `sh` so that it gets executed.
+# - name: 'install docker'
+#   command: 'bash -c "curl -fsSL https://get.docker.com/ | sh"'
+
+# install golang
+- name: Download Go
+  get_url: url="https://storage.googleapis.com/golang/go{{ golang_version }}.{{ golang_os }}-{{ golang_arch }}.tar.gz"
+           dest="/usr/local/src/go{{ golang_version }}.{{ golang_os }}-{{ golang_arch }}.tar.gz"
+
+- name: Extract and install Go
+  unarchive: src="/usr/local/src/go{{ golang_version }}.{{ golang_os }}-{{ golang_arch }}.tar.gz"
+             dest=/usr/local/
+             copy=no
+
+- name: Symlink Go into /usr/local/bin
+  file: src="/usr/local/go/bin/{{ item }}"
+        dest="/usr/local/bin/{{ item }}"
+        state=link
+  with_items:
+    - go
+    - godoc
+    - gofmt
+
+- name: Add GOPATH and other imporant parameters
+  shell: |
+    echo 'export GOROOT={{ golang_root }}' >> /home/vagrant/.bashrc
+    echo 'export GOPATH={{ golang_root }}' >> /home/vagrant/.bashrc
+    echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >> /home/vagrant/.bashrc
+    export GOROOT="{{ golang_root }}""
+    export GOPATH="{{ golang_path }}""
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    mkdir -p /home/vagrant/go/src

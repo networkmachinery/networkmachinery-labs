@@ -1,0 +1,10 @@
+---
+- name: Download CNI and setup CNI
+  shell: |
+    wget --quiet "https://github.com/containernetworking/cni/releases/download/{{ cni_release_version }}/{{ cni_tar_name }}"
+    wget --quiet "https://github.com/containernetworking/plugins/releases/download/{{ plugins_release_version}}/{{ plugins_tar_name }}"
+    sudo mkdir -p /opt/cni/bin
+    sudo mkdir -p /etc/cni/net.d
+    sudo tar -zxf "{{ cni_tar_name }}" -C /opt/cni/bin
+    sudo tar -zxf "{{ plugins_tar_name }}" -C /opt/cni/bin
+    rm -rf /home/vagrant/"{{ cni_tar_name }}" "{{ plugins_tar_name }}"
