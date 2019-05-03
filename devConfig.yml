@@ -5,15 +5,15 @@
   nics:
     - type: "private_network"
       ip_addr: "10.0.0.10"
-  ram: "2000"
+  ram: "3000"
   vcpu: "2"
 
 
-- box:
-    vb: "ubuntu/xenial64"
-  name: "k8s-worker"
-  nics:
-    - type: "private_network"
-      ip_addr: "10.0.0.11"
-  ram: "1000"
-  vcpu: "2"
+# - box:
+#     vb: "ubuntu/xenial64"
+#   name: "k8s-worker"
+#   nics:
+#     - type: "private_network"
+#       ip_addr: "10.0.0.11"
+#   ram: "1000"
+#   vcpu: "2"

@@ -27,7 +27,7 @@
 - name: Add GOPATH and other imporant parameters
   shell: |
     echo 'export GOROOT={{ golang_root }}' >> /home/vagrant/.bashrc
-    echo 'export GOPATH={{ golang_root }}' >> /home/vagrant/.bashrc
+    echo 'export GOPATH={{ golang_path }}' >> /home/vagrant/.bashrc
     echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >> /home/vagrant/.bashrc
     export GOROOT="{{ golang_root }}""
     export GOPATH="{{ golang_path }}""

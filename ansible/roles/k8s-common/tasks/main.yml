@@ -1,3 +1,5 @@
 - include_tasks: modules.yml
-- include_tasks: install.yml
+- include_tasks: kubelet-kubectl-kubeadm.yml
+- include_tasks: docker-containerd.yml
+- include_tasks: open-vswitch.yml
 - include_tasks: configure.yml

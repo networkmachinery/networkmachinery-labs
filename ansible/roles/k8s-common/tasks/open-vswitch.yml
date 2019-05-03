@@ -1,0 +1,9 @@
+- name: Install Open vSwitch packages
+  apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+  vars:
+      packages:
+      - openvswitch-common
+      - openvswitch-switch

@@ -12,3 +12,6 @@
     dest: /etc/kubeadm/kubeadm.conf
   notify:
     - kubeadm init
+    - ensure kube dir exists
+    - copy kubeadm config to master
+    - vagrant user permission

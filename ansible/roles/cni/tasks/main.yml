@@ -1,5 +1,5 @@
 ---
-- name: Download CNI and setup CNI
+- name: Download and setup CNI
   shell: |
     wget --quiet "https://github.com/containernetworking/cni/releases/download/{{ cni_release_version }}/{{ cni_tar_name }}"
     wget --quiet "https://github.com/containernetworking/plugins/releases/download/{{ plugins_release_version}}/{{ plugins_tar_name }}"

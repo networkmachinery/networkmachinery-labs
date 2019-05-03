@@ -3,5 +3,5 @@
 golang_version: 1.11.2
 golang_os: linux
 golang_arch: amd64
-golang_path: "/home/{{ ansible_ssh_user }}"
+golang_path: "/home/{{ ansible_ssh_user }}/go"
 golang_root: "/usr/local/go"

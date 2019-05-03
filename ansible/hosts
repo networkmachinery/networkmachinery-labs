@@ -1,3 +1,3 @@
 
-k8s-master ansible_host=192.168.50.101
-k8s-worker ansible_host=192.168.50.102
+k8s-master ansible_host=10.0.0.10 ansible_ssh_private_key_file=../.vagrant/machines/k8s-master/virtualbox/private_key
+k8s-worker ansible_host=10.0.0.11 ansible_ssh_private_key_file=../.vagrant/machines/k8s-worker/virtualbox/private_key

@@ -1,7 +1,15 @@
 - sysctl: name=net.bridge.bridge-nf-call-ip6tables value=1 state=present reload=yes sysctl_set=yes
 - sysctl: name=net.bridge.bridge-nf-call-iptables value=1 state=present reload=yes sysctl_set=yes
 
+- name: Ensure swap does not exist /etc/fstab
+  mount:
+    name: swap
+    fstype: swap
+    state: absent
 
-- name: join nodes
-  shell: >
-    kubeadm join {{ joinAddress }} --token  {{ joinToken }} --discovery-token-unsafe-skip-ca-verification --ignore-preflight-errors=all
+- name: Disable swap
+  command: swapoff -a
+
+# - name: join workers to master
+#   shell: >
+#     kubeadm join {{ joinAddress }} --token  {{ joinToken }} --discovery-token-unsafe-skip-ca-verification --ignore-preflight-errors=all

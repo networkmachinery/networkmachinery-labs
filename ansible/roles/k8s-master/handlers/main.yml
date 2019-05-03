@@ -1,4 +1,20 @@
-  - name: kubeadm init
-    shell: >
-        sysctl -p &&
-        kubeadm init --ignore-preflight-errors=all --config=/etc/kubeadm/kubeadm.conf
+- name: kubeadm init
+  shell: >
+      sysctl -p &&
+      kubeadm init --ignore-preflight-errors=all --certificate-key={{ certificateKey }} --config=/etc/kubeadm/kubeadm.conf
+
+
+- name: ensure kube dir exists
+  file: path=/home/vagrant/.kube state=directory
+
+- name: copy kubeadm config to master
+  copy:
+    src:  /etc/kubernetes/admin.conf
+    dest:  /home/vagrant/.kube/config
+    remote_src: yes
+
+- name: vagrant user permission
+  file:
+    path: /home/vagrant/.kube/config
+    owner: vagrant
+    group: vagrant

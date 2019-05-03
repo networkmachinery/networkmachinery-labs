@@ -1,0 +1,59 @@
+## This piece of ansible is copied for the kubernetes blog https://kubernetes.io/blog/2019/03/15/kubernetes-setup-using-ansible-and-vagrant/
+
+- name: Install packages that allow apt to be used over HTTPS
+  apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+  vars:
+      packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - ntp
+      - gnupg-agent
+      - software-properties-common
+
+- name: Add an apt signing key for Docker
+  apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+- name: Add apt repository for stable version
+  apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+
+- name: Install docker and its dependecies
+  apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+  vars:
+      packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+  notify:
+    - docker status
+
+- name: Ensures /etc/docker/ dir exists
+  file: path=/etc/docker/ state=directory
+
+- name: Copy docker daemon config over
+  template:
+    src: templates/daemon.json.j2
+    dest: /etc/docker/daemon.json
+
+- name: Ensures /etc/systemd/system/docker.service.d  exists
+  file: path=/etc/systemd/system/docker.service.d state=directory
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: reload and restart docker service
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
