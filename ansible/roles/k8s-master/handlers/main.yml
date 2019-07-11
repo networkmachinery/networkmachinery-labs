@@ -1,7 +1,7 @@
 - name: kubeadm init
   shell: >
       sysctl -p &&
-      kubeadm init --ignore-preflight-errors=all --certificate-key={{ certificateKey }} --config=/etc/kubeadm/kubeadm.conf
+      kubeadm init --ignore-preflight-errors=all --config=/etc/kubeadm/kubeadm.conf
 
 
 - name: ensure kube dir exists
